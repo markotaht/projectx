@@ -77,4 +77,15 @@ public class Character : MonoBehaviour
             currentState.OnStateEnter();
         }
     }
+
+    public void HitCeiling()
+    {
+        if(currentState == CCJUMPSTATE)
+        {
+            if (((CCJumpState)currentState).jumpDir.y > 0)
+            {
+                GameObject.Destroy(transform.gameObject);
+            }
+        }
+    }
 }

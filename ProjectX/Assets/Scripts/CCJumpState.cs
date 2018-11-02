@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class CCJumpState : AState
 {
-    private float prevY;
     private CharacterController charControl;
 
-    Vector3 jumpDir = Vector3.zero;
+    public Vector3 jumpDir = Vector3.zero;
 
     public float walkSpeed;
     public float jumpVelocity;
@@ -24,7 +23,6 @@ public class CCJumpState : AState
     {
         Vector3 moveDirSide = character.MovingDir;
 
-        prevY = character.position.y;
         jumpDir.y += Physics.gravity.y * Time.deltaTime;
 
         charControl.Move(jumpDir * Time.deltaTime);
