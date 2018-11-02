@@ -1,8 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class StartMenu : MonoBehaviour {
+public class MenuController : MonoBehaviour {
+
+    public Text pauseText;
 
 	// Use this for initialization
 	void Start () {
@@ -16,11 +20,17 @@ public class StartMenu : MonoBehaviour {
 
     public void StartGame()
     {
-        Debug.Log("Start game");
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void QuitGame()
     {
+        Application.Quit();
         Debug.Log("Quit game");
+    }
+
+    public void ContinueGame()
+    {
+        SceneManager.UnloadSceneAsync("StartScene");
     }
 }
