@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class StartMenu : MonoBehaviour {
+public class MenuController : MonoBehaviour {
 
     public Text pauseText;
 
