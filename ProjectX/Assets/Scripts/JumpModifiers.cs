@@ -23,8 +23,8 @@ public class JumpModifiers {
         FoodEaten += 1;
     }
 
-    public float ApplyModifiers(float jumpVelocity)
+    public float ApplyModifiers(float jumpVelocity, float foodForce)
     {
-        return jumpVelocity + jumpVelocity * FoodEaten * 0.5f;
+        return jumpVelocity + jumpVelocity * FoodEaten * foodForce;
     }
 }

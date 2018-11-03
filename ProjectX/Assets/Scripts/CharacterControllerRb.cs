@@ -12,6 +12,12 @@ public class CharacterControllerRb : MonoBehaviour {
     [SerializeField]
     private float jumpforce = 350f;
 
+    [SerializeField]
+    private float fartForce = 100f;
+
+    [SerializeField]
+    private float foodForce = 0.5f;
+
     public JumpModifiers jumpModifiers;
 
     [SerializeField]
@@ -21,7 +27,7 @@ public class CharacterControllerRb : MonoBehaviour {
 
     bool grounded = false;
     public Transform groundCheck;
-    float groundRadius = 0.1f;
+    float groundRadius = 0.2f;
     public LayerMask whatIsGround;
 
     public float maxFartTime = 2f;
@@ -31,11 +37,16 @@ public class CharacterControllerRb : MonoBehaviour {
     bool inAir = false;
     bool farting = false;
     bool canFart = false;
+    bool jumping = false;
 
     public void EatFood()
     {
-        canFart = true;
         jumpModifiers.FoodEaten += 1;
+    }
+
+    public void FartFood()
+    {
+        canFart = true;
     }
 
 	// Use this for initialization
@@ -47,12 +58,12 @@ public class CharacterControllerRb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (grounded && Input.GetKeyDown(KeyCode.Space))
+        if (grounded && Input.GetButton("Jump"))
         {
             animator.SetBool("Jump up", true);
         }
 
-        if(!grounded && Input.GetKeyDown(KeyCode.LeftShift) && canFart)
+        if(!grounded && Input.GetButton("Fart"))
         {
             canFart = false;
             animator.SetBool("Fart", true);
@@ -67,7 +78,8 @@ public class CharacterControllerRb : MonoBehaviour {
     {
         animator.SetBool("Jump up", false);
         inAir = true;
-        rb.AddForce(new Vector2(0, jumpModifiers.ApplyModifiers(jumpforce)));
+        jumping = true;
+        rb.AddForce(new Vector2(0, jumpModifiers.ApplyModifiers(jumpforce, foodForce)));
     }
 
     public void Land()
@@ -79,6 +91,7 @@ public class CharacterControllerRb : MonoBehaviour {
     public void Landed()
     {
         animator.SetBool("Falling", false);
+        jumping = false;
     }
 
     private void FixedUpdate()
@@ -90,7 +103,7 @@ public class CharacterControllerRb : MonoBehaviour {
             if(currentFartTime > 0)
             {
                 currentFartTime -= Time.deltaTime;
-                float move = 100 * (facingRight ? 1 : -1);
+                float move = fartForce * (facingRight ? 1 : -1);
                 rb.velocity = new Vector2(move, 0);
             }
             else
@@ -121,9 +134,13 @@ public class CharacterControllerRb : MonoBehaviour {
                 {
                     Flip();
                 }
+                rb.velocity = new Vector3(move * maxSpeed, rb.velocity.y);
+            }else if (!grounded && !jumping)
+            {
+                rb.velocity = new Vector2(rb.velocity.x - rb.velocity.x * 0.02f, rb.velocity.y);
             }
 
-            rb.velocity = new Vector3(move * maxSpeed, rb.velocity.y);
+           
         }
     }
 
@@ -140,9 +157,9 @@ public class CharacterControllerRb : MonoBehaviour {
         if (!grounded)
         {
 
-            RaycastHit2D hitUp = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.up, 1.1f);
-            RaycastHit2D hitLeft = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.left, 1.1f);
-            RaycastHit2D hitRight = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.right, 1.1f);
+            RaycastHit2D hitUp = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.up, GetComponent<CapsuleCollider2D>().size.y /2 + 0.1f);
+            RaycastHit2D hitLeft = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.left, GetComponent<CapsuleCollider2D>().size.x / 2 + 0.1f);
+            RaycastHit2D hitRight = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.right, GetComponent<CapsuleCollider2D>().size.x / 2 + 0.1f);
 
             if (hitLeft.collider != null || hitRight.collider)
             {
@@ -163,6 +180,9 @@ public class CharacterControllerRb : MonoBehaviour {
             animator.SetBool("HitCeiling", true);
             rb.gravityScale = 0;
             rb.velocity = Vector3.zero;
+            farting = false;
+            animator.SetBool("Fart", false);
+            trail.active = false;
             //Ceiling death animation
             Debug.Log("ceiling death");
         }
@@ -171,6 +191,9 @@ public class CharacterControllerRb : MonoBehaviour {
             animator.SetBool("HitWall", true);
             rb.gravityScale = 0;
             rb.velocity = Vector3.zero;
+            farting = false;
+            animator.SetBool("Fart", false);
+            trail.active = false;
             Debug.Log("wall death");
         }
     }
