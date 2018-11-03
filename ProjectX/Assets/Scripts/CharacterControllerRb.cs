@@ -6,17 +6,25 @@ public class CharacterControllerRb : MonoBehaviour {
 
     Rigidbody2D rb;
 
+	//Liikumiskiirus
     [SerializeField]
     private float maxSpeed = 10;
 
+	//Hüppe jõud
     [SerializeField]
     private float jumpforce = 350f;
 
+	//Peeru tugevus
     [SerializeField]
-    private float fartForce = 100f;
+    private float fartForce = 0.001f;
 
+	//Toidu jõud
     [SerializeField]
     private float foodForce = 0.5f;
+	
+	//Peeru pikkus
+	[SerializeField]
+    private float fartDuration = 0.5f;
 
     public JumpModifiers jumpModifiers;
 
@@ -30,7 +38,6 @@ public class CharacterControllerRb : MonoBehaviour {
     float groundRadius = 0.2f;
     public LayerMask whatIsGround;
 
-    public float maxFartTime = 2f;
     private float currentFartTime = 0f;
 
     bool facingRight = false;
@@ -58,7 +65,7 @@ public class CharacterControllerRb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (grounded && Input.GetButton("Jump"))
+        if (grounded && Input.GetButtonDown("Jump"))
         {
             animator.SetBool("Jump up", true);
         }
@@ -68,7 +75,7 @@ public class CharacterControllerRb : MonoBehaviour {
             canFart = false;
             animator.SetBool("Fart", true);
             farting = true;
-            currentFartTime = maxFartTime;
+            currentFartTime = fartDuration;
             rb.gravityScale = 0;
             trail.active = true;
         }
@@ -154,7 +161,8 @@ public class CharacterControllerRb : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!grounded)
+        if (false && !grounded)
+			
         {
 
             RaycastHit2D hitUp = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.up, GetComponent<CapsuleCollider2D>().size.y /2 + 0.1f);
@@ -177,7 +185,7 @@ public class CharacterControllerRb : MonoBehaviour {
     {
         if (ceiling)
         {
-            animator.SetBool("HitCeiling", true);
+            animator.SetBool("HitCeiling", false);
             rb.gravityScale = 0;
             rb.velocity = Vector3.zero;
             farting = false;
@@ -188,7 +196,7 @@ public class CharacterControllerRb : MonoBehaviour {
         }
         else
         {
-            animator.SetBool("HitWall", true);
+            animator.SetBool("HitWall", false);
             rb.gravityScale = 0;
             rb.velocity = Vector3.zero;
             farting = false;
