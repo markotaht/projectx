@@ -20,7 +20,7 @@ public class MenuController : MonoBehaviour {
 
     public void StartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Aimar Level");
     }
 
     public void QuitGame()
