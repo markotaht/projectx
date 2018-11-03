@@ -24,11 +24,6 @@ public class MonekyAnimationEventHandler : MonoBehaviour {
         psc.Die();
     }
 
-    void Run(bool start)
-    {
-        psc.Running(start);
-    }
-
     void Fart()
     {
         psc.Fart();
