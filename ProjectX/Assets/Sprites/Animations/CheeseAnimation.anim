@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: BananaAnimation
+  m_Name: CheeseAnimation
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -19,13 +19,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: a47700974f5c59a41be351842d2a2b15, type: 3}
+      value: {fileID: 21300000, guid: 85a563fb0073ab148bd99e6dbf234f6b, type: 3}
     - time: 0.2
-      value: {fileID: 21300000, guid: b462c80834a93664d872ebf94f7fa87b, type: 3}
+      value: {fileID: 21300000, guid: 37550e494864b3d40879031164396e88, type: 3}
     - time: 0.4
-      value: {fileID: 21300000, guid: a11aab5fa8ec65e418d571894638da27, type: 3}
-    - time: 0.6
-      value: {fileID: 21300000, guid: 4464825497ded1b49847a43a61c54515, type: 3}
+      value: {fileID: 21300000, guid: 32acff49f94b2df44a9aaa9a8232c37d, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -45,16 +43,15 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: a47700974f5c59a41be351842d2a2b15, type: 3}
-    - {fileID: 21300000, guid: b462c80834a93664d872ebf94f7fa87b, type: 3}
-    - {fileID: 21300000, guid: a11aab5fa8ec65e418d571894638da27, type: 3}
-    - {fileID: 21300000, guid: 4464825497ded1b49847a43a61c54515, type: 3}
+    - {fileID: 21300000, guid: 85a563fb0073ab148bd99e6dbf234f6b, type: 3}
+    - {fileID: 21300000, guid: 37550e494864b3d40879031164396e88, type: 3}
+    - {fileID: 21300000, guid: 32acff49f94b2df44a9aaa9a8232c37d, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.8
+    m_StopTime: 0.6
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
