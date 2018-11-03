@@ -93,23 +93,22 @@ public class CharacterControllerRb : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Vector2 collisionDir = collision.transform.position - transform.position;
-        collisionDir.Normalize();
+        if (!grounded)
+        {
 
-        RaycastHit2D hitCeiling = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.up, 1.1f);
+            RaycastHit2D hitUp = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.up, 1.1f);
+            RaycastHit2D hitLeft = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.left, 1.1f);
+            RaycastHit2D hitRight = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.right, 1.1f);
 
-        if (!grounded && !Mathf.Approximately(collisionDir.x, 0) && !Mathf.Approximately(rb.velocity.x, 0))
-        {
-            Die(false);
-        }
-        else if (!grounded && collisionDir.y > 0 && hitCeiling.collider != null)
-        {
-            Debug.Log(hitCeiling.collider.name);
-            Die(true);
-        }
-        else if(!grounded && !Mathf.Approximately(collisionDir.x, 0) && !Mathf.Approximately(rb.velocity.x, 0))
-        {
-            Die(false);
+            if (hitLeft.collider != null || hitRight.collider)
+            {
+                Die(false);
+            }
+            else if (hitUp.collider != null)
+            {
+
+                Die(true);
+            }
         }
     }
 
