@@ -9,16 +9,6 @@ public class PlayerSoundController : MonoBehaviour {
     public AudioSource dying;
     public AudioSource farting;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void Eat()
     {
         eating.Play();

@@ -26,6 +26,9 @@ public class CharacterControllerRb : MonoBehaviour {
 	[SerializeField]
     private float fartDuration = 0.5f;
 
+    [SerializeField]
+    private PlayerSoundController psc;
+
     public JumpModifiers jumpModifiers;
 
     [SerializeField]
@@ -135,11 +138,11 @@ public class CharacterControllerRb : MonoBehaviour {
                 if (Mathf.Abs(move) > 0 && walking)
                 {
                     walking = true;
-                    //Start walking sound
+                    psc.Running(true);
                 }else if(Mathf.Approximately(move, 0))
                 {
                     walking = false;
-                    //Stop walking sound
+                    psc.Running(false);
                 }
                 animator.SetFloat("Walking", Mathf.Abs(move));
 
@@ -159,7 +162,7 @@ public class CharacterControllerRb : MonoBehaviour {
             else
             {
                 walking = false;
-                //Stop playing walking sound
+                psc.Running(false); 
             }
 
            

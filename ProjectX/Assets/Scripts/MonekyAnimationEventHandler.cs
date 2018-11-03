@@ -6,6 +6,8 @@ public class MonekyAnimationEventHandler : MonoBehaviour {
 
     [SerializeField]
     CharacterControllerRb cc;
+
+    [SerializeField]
     PlayerSoundController psc;
 
 	void Jump()
