@@ -70,10 +70,12 @@ public class CharacterControllerRb : MonoBehaviour {
         if (ceiling)
         {
             //Ceiling death animation
+            Debug.Log("ceiling death");
         }
         else
         {
             //Wall death animation
+            Debug.Log("wall death");
         }
     }
 }
