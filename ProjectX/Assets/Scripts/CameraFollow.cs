@@ -13,7 +13,7 @@ public class CameraFollow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        intro = true;
+        intro = false;
         introcounter = maxIntroCounter;
         Vector3 newPos = finish.position;
         if (newPos.y < 0)
