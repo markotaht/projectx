@@ -13,6 +13,7 @@ public class Character : MonoBehaviour
     public CCJumpState CCJUMPSTATE;
     public CCWalkState CCWALKSTATE;
     public CCDeathState CCDEATHSTATE;
+    public CCFallingState CCFALLINGSTATE;
 
     public AState currentState;
 
@@ -50,6 +51,7 @@ public class Character : MonoBehaviour
         CCJUMPSTATE = new CCJumpState(this);
         CCWALKSTATE = new CCWalkState(this);
         CCDEATHSTATE = new CCDeathState(this);
+        CCFALLINGSTATE = new CCFallingState(this);
         SetState(CCWALKSTATE);
 
     }
