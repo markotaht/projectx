@@ -9,10 +9,18 @@ public class InputHandler : MonoBehaviour {
     private Event current = new Event();
     private KeyCode currentKey;
     private List<KeyCode> keysDown = new List<KeyCode>();
+    public AudioSource backgroundMusic;
+    public AudioListener listener;
+
     // Use this for initialization
     void Start () {
-		
 	}
+
+    void OnEnable()
+    {
+        Time.timeScale = 1;
+        backgroundMusic.Play();
+    }
 
     // Update is called once per frame
     void Update()
@@ -24,6 +32,7 @@ public class InputHandler : MonoBehaviour {
         if (currentKey == KeyCode.Escape)
         {
             Time.timeScale = 0;
+            backgroundMusic.Stop();
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
         }
     }

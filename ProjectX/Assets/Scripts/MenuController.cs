@@ -32,5 +32,6 @@ public class MenuController : MonoBehaviour {
     public void ContinueGame()
     {
         SceneManager.UnloadSceneAsync("MainMenu");
+        Time.timeScale = 1;
     }
 }
