@@ -282,10 +282,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 10
   jumpforce: 350
+  trail: {fileID: 0}
   groundCheck: {fileID: 603669584}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  maxFartTime: 2
 --- !u!61 &537024602
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1035,11 +1037,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4391174959667864, guid: b7a1d54adb216b34cb769773c2dfd764, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -93.75
+      value: -27.6
       objectReference: {fileID: 0}
     - target: {fileID: 4391174959667864, guid: b7a1d54adb216b34cb769773c2dfd764, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 13.36
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4391174959667864, guid: b7a1d54adb216b34cb769773c2dfd764, type: 2}
       propertyPath: m_LocalPosition.z

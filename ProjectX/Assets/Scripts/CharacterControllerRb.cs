@@ -14,6 +14,9 @@ public class CharacterControllerRb : MonoBehaviour {
 
     public JumpModifiers jumpModifiers;
 
+    [SerializeField]
+    private GameObject trail;
+
     private Animator animator;
 
     bool grounded = false;
@@ -21,8 +24,19 @@ public class CharacterControllerRb : MonoBehaviour {
     float groundRadius = 0.1f;
     public LayerMask whatIsGround;
 
+    public float maxFartTime = 2f;
+    private float currentFartTime = 0f;
+
     bool facingRight = false;
     bool inAir = false;
+    bool farting = false;
+    bool canFart = false;
+
+    public void EatFood()
+    {
+        canFart = true;
+        jumpModifiers.FoodEaten += 1;
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +50,16 @@ public class CharacterControllerRb : MonoBehaviour {
         if (grounded && Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetBool("Jump up", true);
+        }
+
+        if(!grounded && Input.GetKeyDown(KeyCode.LeftShift) && canFart)
+        {
+            canFart = false;
+            animator.SetBool("Fart", true);
+            farting = true;
+            currentFartTime = maxFartTime;
+            rb.gravityScale = 0;
+            trail.active = true;
         }
     }
 
@@ -60,27 +84,47 @@ public class CharacterControllerRb : MonoBehaviour {
     private void FixedUpdate()
     {
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
-       
-        float move = rb.velocity.x / maxSpeed;
-        if(grounded && inAir && rb.velocity.y < 0)
-        {
-            Land();
-        }
-        else if (grounded)
-        {
-            move = Input.GetAxisRaw("Horizontal");
-            animator.SetFloat("Walking", Mathf.Abs(move));
 
-            if(move > 0 && !facingRight)
+        if (farting)
+        {
+            if(currentFartTime > 0)
             {
-                Flip();
-            }else if(move < 0 && facingRight)
+                currentFartTime -= Time.deltaTime;
+                float move = 100 * (facingRight ? 1 : -1);
+                rb.velocity = new Vector2(move, 0);
+            }
+            else
             {
-                Flip();
+                rb.gravityScale = 1;
+                farting = false;
+                animator.SetBool("Fart", false);
+                trail.active = false;
             }
         }
+        else
+        {
+            float move = rb.velocity.x / maxSpeed;
+            if (grounded && inAir && rb.velocity.y < 0)
+            {
+                Land();
+            }
+            else if (grounded)
+            {
+                move = Input.GetAxisRaw("Horizontal");
+                animator.SetFloat("Walking", Mathf.Abs(move));
 
-        rb.velocity = new Vector3(move * maxSpeed, rb.velocity.y);
+                if (move > 0 && !facingRight)
+                {
+                    Flip();
+                }
+                else if (move < 0 && facingRight)
+                {
+                    Flip();
+                }
+            }
+
+            rb.velocity = new Vector3(move * maxSpeed, rb.velocity.y);
+        }
     }
 
     void Flip()
@@ -93,23 +137,22 @@ public class CharacterControllerRb : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Vector2 collisionDir = collision.transform.position - transform.position;
-        collisionDir.Normalize();
+        if (!grounded)
+        {
 
-        RaycastHit2D hitCeiling = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.up, 1.1f);
+            RaycastHit2D hitUp = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.up, 1.1f);
+            RaycastHit2D hitLeft = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.left, 1.1f);
+            RaycastHit2D hitRight = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.right, 1.1f);
 
-        if (!grounded && !Mathf.Approximately(collisionDir.x, 0) && !Mathf.Approximately(rb.velocity.x, 0))
-        {
-            Die(false);
-        }
-        else if (!grounded && collisionDir.y > 0 && hitCeiling.collider != null)
-        {
-            Debug.Log(hitCeiling.collider.name);
-            Die(true);
-        }
-        else if(!grounded && !Mathf.Approximately(collisionDir.x, 0) && !Mathf.Approximately(rb.velocity.x, 0))
-        {
-            Die(false);
+            if (hitLeft.collider != null || hitRight.collider)
+            {
+                Die(false);
+            }
+            else if (hitUp.collider != null)
+            {
+
+                Die(true);
+            }
         }
     }
 
