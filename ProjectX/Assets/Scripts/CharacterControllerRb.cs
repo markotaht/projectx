@@ -30,6 +30,13 @@ public class CharacterControllerRb : MonoBehaviour {
     bool facingRight = false;
     bool inAir = false;
     bool farting = false;
+    bool canFart = false;
+
+    public void EatFood()
+    {
+        canFart = true;
+        jumpModifiers.FoodEaten += 1;
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -45,8 +52,9 @@ public class CharacterControllerRb : MonoBehaviour {
             animator.SetBool("Jump up", true);
         }
 
-        if(!grounded && Input.GetKeyDown(KeyCode.LeftShift))
+        if(!grounded && Input.GetKeyDown(KeyCode.LeftShift) && canFart)
         {
+            canFart = false;
             animator.SetBool("Fart", true);
             farting = true;
             currentFartTime = maxFartTime;
