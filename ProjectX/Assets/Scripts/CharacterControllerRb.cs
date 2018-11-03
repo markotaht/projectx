@@ -154,7 +154,8 @@ public class CharacterControllerRb : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!grounded)
+        if (false && !grounded)
+			
         {
 
             RaycastHit2D hitUp = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.up, GetComponent<CapsuleCollider2D>().size.y /2 + 0.1f);
@@ -177,7 +178,7 @@ public class CharacterControllerRb : MonoBehaviour {
     {
         if (ceiling)
         {
-            animator.SetBool("HitCeiling", true);
+            animator.SetBool("HitCeiling", false);
             rb.gravityScale = 0;
             rb.velocity = Vector3.zero;
             farting = false;
@@ -188,7 +189,7 @@ public class CharacterControllerRb : MonoBehaviour {
         }
         else
         {
-            animator.SetBool("HitWall", true);
+            animator.SetBool("HitWall", false);
             rb.gravityScale = 0;
             rb.velocity = Vector3.zero;
             farting = false;

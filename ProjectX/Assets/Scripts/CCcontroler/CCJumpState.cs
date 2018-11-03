@@ -42,7 +42,7 @@ public class CCJumpState : AState
     public override void OnStateEnter()
     {
         character.state = "Jumping";
-        jumpDir.y = character.jumpModifiers.ApplyModifiers(jumpVelocity);
+      //  jumpDir.y = character.jumpModifiers.ApplyModifiers(jumpVelocity);
         charControl.slopeLimit = 90;
     }
 
