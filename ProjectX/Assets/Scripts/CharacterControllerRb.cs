@@ -14,6 +14,9 @@ public class CharacterControllerRb : MonoBehaviour {
 
     public JumpModifiers jumpModifiers;
 
+    [SerializeField]
+    private GameObject trail;
+
     private Animator animator;
 
     bool grounded = false;
@@ -21,8 +24,12 @@ public class CharacterControllerRb : MonoBehaviour {
     float groundRadius = 0.1f;
     public LayerMask whatIsGround;
 
+    public float maxFartTime = 2f;
+    private float currentFartTime = 0f;
+
     bool facingRight = false;
     bool inAir = false;
+    bool farting = false;
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +43,15 @@ public class CharacterControllerRb : MonoBehaviour {
         if (grounded && Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetBool("Jump up", true);
+        }
+
+        if(!grounded && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            animator.SetBool("Fart", true);
+            farting = true;
+            currentFartTime = maxFartTime;
+            rb.gravityScale = 0;
+            trail.active = true;
         }
     }
 
@@ -60,27 +76,47 @@ public class CharacterControllerRb : MonoBehaviour {
     private void FixedUpdate()
     {
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
-       
-        float move = rb.velocity.x / maxSpeed;
-        if(grounded && inAir && rb.velocity.y < 0)
-        {
-            Land();
-        }
-        else if (grounded)
-        {
-            move = Input.GetAxisRaw("Horizontal");
-            animator.SetFloat("Walking", Mathf.Abs(move));
 
-            if(move > 0 && !facingRight)
+        if (farting)
+        {
+            if(currentFartTime > 0)
             {
-                Flip();
-            }else if(move < 0 && facingRight)
+                currentFartTime -= Time.deltaTime;
+                float move = 100 * (facingRight ? 1 : -1);
+                rb.velocity = new Vector2(move, 0);
+            }
+            else
             {
-                Flip();
+                rb.gravityScale = 1;
+                farting = false;
+                animator.SetBool("Fart", false);
+                trail.active = false;
             }
         }
+        else
+        {
+            float move = rb.velocity.x / maxSpeed;
+            if (grounded && inAir && rb.velocity.y < 0)
+            {
+                Land();
+            }
+            else if (grounded)
+            {
+                move = Input.GetAxisRaw("Horizontal");
+                animator.SetFloat("Walking", Mathf.Abs(move));
 
-        rb.velocity = new Vector3(move * maxSpeed, rb.velocity.y);
+                if (move > 0 && !facingRight)
+                {
+                    Flip();
+                }
+                else if (move < 0 && facingRight)
+                {
+                    Flip();
+                }
+            }
+
+            rb.velocity = new Vector3(move * maxSpeed, rb.velocity.y);
+        }
     }
 
     void Flip()
