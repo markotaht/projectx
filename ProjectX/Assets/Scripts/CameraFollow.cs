@@ -13,7 +13,7 @@ public class CameraFollow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        intro = false;
+        intro = true;
         introcounter = maxIntroCounter;
         Vector3 newPos = finish.position;
         if (newPos.y < 0)
@@ -57,4 +57,9 @@ public class CameraFollow : MonoBehaviour {
             transform.position = newPos;
         }
 	}
+
+    public bool IsIntro()
+    {
+        return intro;
+    }
 }
