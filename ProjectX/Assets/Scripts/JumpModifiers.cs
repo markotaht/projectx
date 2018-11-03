@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JumpModifiers {
 
-    private int _foodEaten = 1;
+    private int _foodEaten = 0;
 
     public int FoodEaten
     {
@@ -25,6 +25,6 @@ public class JumpModifiers {
 
     public float ApplyModifiers(float jumpVelocity)
     {
-        return jumpVelocity * FoodEaten;
+        return jumpVelocity + jumpVelocity * FoodEaten * 0.5f;
     }
 }

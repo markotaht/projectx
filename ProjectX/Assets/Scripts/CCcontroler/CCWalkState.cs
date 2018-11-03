@@ -9,10 +9,13 @@ public class CCWalkState : AState
     private float walkSpeed;
     private CharacterController charControl;
 
+    private float lastY;
+
     public CCWalkState(Character character) : base(character)
     {
         this.walkSpeed = character.walkSpeed;
         this.charControl = character.charControl;
+        lastY = character.position.y;
     }
 
     public override void Tick()
@@ -26,8 +29,14 @@ public class CCWalkState : AState
         {
             character.SetState(character.CCJUMPSTATE);
         }
+        if (lastY - character.position.y > 0.05)
+        {
+            character.SetState(character.CCFALLINGSTATE);
+        }
 
-        charControl.SimpleMove(moveDirSide);
+        lastY = character.position.y;
+        charControl.Move(moveDirSide * Time.deltaTime);
+        charControl.SimpleMove(Vector3.zero);
     }
 
     public override void OnStateEnter()

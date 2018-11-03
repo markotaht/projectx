@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class FoodTrigger : MonoBehaviour {
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        other.gameObject.GetComponent<Character>().jumpModifiers.FoodEaten += 1;
+        other.gameObject.GetComponent<CharacterControllerRb>().jumpModifiers.FoodEaten += 1;
         Destroy(transform.gameObject);
     }
 }
