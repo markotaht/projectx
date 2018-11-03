@@ -13,14 +13,9 @@ public class InputHandler : MonoBehaviour {
     public AudioListener listener;
 
     // Use this for initialization
-    void Start () {
+    void Start() { 
+        SceneManager.sceneLoaded += OnSceneLoaded;
 	}
-
-    void OnEnable()
-    {
-        Time.timeScale = 1;
-        backgroundMusic.Play();
-    }
 
     // Update is called once per frame
     void Update()
@@ -29,12 +24,18 @@ public class InputHandler : MonoBehaviour {
         Event.PopEvent(current);
         currentKey = ReadKeyCode();
 
-        if (currentKey == KeyCode.Escape)
+        if (currentKey == KeyCode.Escape && !SceneManager.GetActiveScene().name.Equals("MainMenu")) 
         {
-            Time.timeScale = 0;
-            backgroundMusic.Stop();
+            //backgroundMusic.Stop();
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+
+            Time.timeScale = 0;
         }
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.SetActiveScene(scene);
     }
 
     protected KeyCode ReadKeyCode()

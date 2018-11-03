@@ -7,13 +7,13 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField]
     public Transform target;
     public Transform finish;
-    private bool intro;
+    private bool intro = true;
     private float introcounter;
     private float maxIntroCounter = 6f;
 
 	// Use this for initialization
 	void Start () {
-        intro = true;
+        //intro = true;
         introcounter = maxIntroCounter;
         Vector3 newPos = finish.position;
         if (newPos.y < 0)
@@ -28,6 +28,7 @@ public class CameraFollow : MonoBehaviour {
 	void Update () {
         if (intro)
         {
+            Debug.Log("intro");
             introcounter -= Time.deltaTime;
             if(introcounter < 0)
             {
@@ -48,6 +49,7 @@ public class CameraFollow : MonoBehaviour {
         }
         else
         {
+            Debug.Log("follow");
             Vector3 newPos = target.position;
             if (newPos.y < 0)
             {

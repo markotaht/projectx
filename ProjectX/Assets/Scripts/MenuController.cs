@@ -7,10 +7,13 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour {
 
     public Text pauseText;
+    public AudioSource source;
+    public AudioListener listener;
+    public Object audio;
 
 	// Use this for initialization
 	void Start () {
-		
+        
 	}
 	
 	// Update is called once per frame
@@ -20,6 +23,10 @@ public class MenuController : MonoBehaviour {
 
     public void StartGame()
     {
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainMenu"));
+        //source.Stop();
+        //listener.enabled = false;
+        Time.timeScale = 1;
         SceneManager.LoadScene("Aimar Level");
     }
 
