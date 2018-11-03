@@ -21,7 +21,7 @@ public class CharacterControllerRb : MonoBehaviour {
 
     bool grounded = false;
     public Transform groundCheck;
-    float groundRadius = 0.1f;
+    float groundRadius = 0.2f;
     public LayerMask whatIsGround;
 
     public float maxFartTime = 2f;
@@ -34,8 +34,12 @@ public class CharacterControllerRb : MonoBehaviour {
 
     public void EatFood()
     {
-        canFart = true;
         jumpModifiers.FoodEaten += 1;
+    }
+
+    public void FartFood()
+    {
+        canFart = true;
     }
 
 	// Use this for initialization
@@ -52,7 +56,7 @@ public class CharacterControllerRb : MonoBehaviour {
             animator.SetBool("Jump up", true);
         }
 
-        if(!grounded && Input.GetKeyDown(KeyCode.LeftShift) && canFart)
+        if(!grounded && Input.GetKeyDown(KeyCode.LeftShift))
         {
             canFart = false;
             animator.SetBool("Fart", true);
@@ -121,9 +125,13 @@ public class CharacterControllerRb : MonoBehaviour {
                 {
                     Flip();
                 }
+                rb.velocity = new Vector3(move * maxSpeed, rb.velocity.y);
+            }else if (!grounded)
+            {
+                rb.velocity = new Vector2(rb.velocity.x - rb.velocity.x * 0.02f, rb.velocity.y);
             }
 
-            rb.velocity = new Vector3(move * maxSpeed, rb.velocity.y);
+           
         }
     }
 
