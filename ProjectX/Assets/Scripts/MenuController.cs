@@ -31,6 +31,6 @@ public class MenuController : MonoBehaviour {
 
     public void ContinueGame()
     {
-        SceneManager.UnloadSceneAsync("StartScene");
+        SceneManager.UnloadSceneAsync("MainMenu");
     }
 }
