@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 5b693a45bb73165478deb5a05b304a5f
+  - enabled: 1
+    path: Assets/Scenes/Aimar Level.unity
+    guid: 43a44445fc7cfb648a62a3e50a3a1a79
   m_configObjects: {}

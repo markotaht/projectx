@@ -96,7 +96,7 @@ public class CharacterControllerRb : MonoBehaviour {
         Vector2 collisionDir = collision.transform.position - transform.position;
         collisionDir.Normalize();
 
-        RaycastHit2D hitCeiling = Physics2D.BoxCast(transform.position, GetComponent<BoxCollider2D>().size, 0, Vector2.up, 1.2f);
+        RaycastHit2D hitCeiling = Physics2D.CircleCast(transform.position, GetComponent<CircleCollider2D>().radius, Vector2.up, 1.1f);
 
         if (!grounded && !Mathf.Approximately(collisionDir.x, 0) && !Mathf.Approximately(rb.velocity.x, 0))
         {
