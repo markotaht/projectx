@@ -61,6 +61,11 @@ public class LevelLoader : MonoBehaviour {
 			
 				//Spawn the prefab at the right location
 				GameObject go = (GameObject)Instantiate(ctp.prefab, new Vector3(x, y, 0), Quaternion.identity );
+
+                if(go.GetComponent<CharacterControllerRb>() != null)
+                {
+                    Camera.main.GetComponent<CameraFollow>().target = go.transform;
+                }
 				//maybe do more stuff to the gameobject here?
 				return;
 			}
