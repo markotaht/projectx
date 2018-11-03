@@ -6,7 +6,7 @@ public class FoodTrigger : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        other.gameObject.GetComponent<CharacterControllerRb>().jumpModifiers.FoodEaten += 1;
+        other.gameObject.GetComponent<CharacterControllerRb>().EatFood();
         Destroy(transform.gameObject);
     }
 }
