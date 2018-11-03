@@ -45,6 +45,7 @@ public class CharacterControllerRb : MonoBehaviour {
     bool farting = false;
     bool canFart = false;
     bool jumping = false;
+    bool walking = false;
 
     public void EatFood()
     {
@@ -131,6 +132,15 @@ public class CharacterControllerRb : MonoBehaviour {
             else if (grounded)
             {
                 move = Input.GetAxisRaw("Horizontal");
+                if (Mathf.Abs(move) > 0 && walking)
+                {
+                    walking = true;
+                    //Start walking sound
+                }else if(Mathf.Approximately(move, 0))
+                {
+                    walking = false;
+                    //Stop walking sound
+                }
                 animator.SetFloat("Walking", Mathf.Abs(move));
 
                 if (move > 0 && !facingRight)
@@ -145,6 +155,11 @@ public class CharacterControllerRb : MonoBehaviour {
             }else if (!grounded && !jumping)
             {
                 rb.velocity = new Vector2(rb.velocity.x - rb.velocity.x * 0.02f, rb.velocity.y);
+            }
+            else
+            {
+                walking = false;
+                //Stop playing walking sound
             }
 
            
