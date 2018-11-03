@@ -461,7 +461,7 @@ AudioListener:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 896636679}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &896636681
 Camera:
   m_ObjectHideFlags: 0
@@ -871,6 +871,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseText: {fileID: 1036658826}
+  source: {fileID: 1730468927}
+  listener: {fileID: 896636680}
+  audio: {fileID: 1730468926}
 --- !u!4 &1538633523
 Transform:
   m_ObjectHideFlags: 0
@@ -906,7 +909,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1730468926}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8fc9c6fbe0d270246848235472d15ade, type: 3}
