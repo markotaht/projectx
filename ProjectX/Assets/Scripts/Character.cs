@@ -12,6 +12,7 @@ public class Character : MonoBehaviour
 
     public CCJumpState CCJUMPSTATE;
     public CCWalkState CCWALKSTATE;
+    public CCDeathState CCDEATHSTATE;
 
     public AState currentState;
 
@@ -48,6 +49,7 @@ public class Character : MonoBehaviour
 
         CCJUMPSTATE = new CCJumpState(this);
         CCWALKSTATE = new CCWalkState(this);
+        CCDEATHSTATE = new CCDeathState(this);
         SetState(CCWALKSTATE);
 
     }
@@ -84,8 +86,21 @@ public class Character : MonoBehaviour
         {
             if (((CCJumpState)currentState).jumpDir.y > 0)
             {
-                GameObject.Destroy(transform.gameObject);
+                SetState(CCDEATHSTATE);
             }
+        }
+    }
+
+    public void Die()
+    {
+        StartCoroutine(DeathSequence());
+    }
+
+    IEnumerator DeathSequence()
+    {
+        for (int i = 0; i < 40; i++)
+        {
+            yield return null;
         }
     }
 }
