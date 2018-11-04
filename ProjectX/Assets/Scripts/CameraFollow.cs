@@ -41,7 +41,7 @@ public class CameraFollow : MonoBehaviour {
             }
 
             Vector3 newPos = finish.position * introcounter / maxIntroCounter + target.position * (maxIntroCounter - introcounter) / maxIntroCounter;
-            Camera.main.orthographicSize = 5 + 5 * Mathf.Sin(Mathf.PI * introcounter / maxIntroCounter);
+            Camera.main.orthographicSize = 5 + 10 * Mathf.Sin(Mathf.PI * introcounter / maxIntroCounter);
             if (newPos.y < 0 - YOffset)
             {
                 newPos.y = 0 - YOffset;
