@@ -59,16 +59,19 @@ public class CharacterControllerRb : MonoBehaviour {
 
     public void EatBanana()
     {
+        psc.Eat();
         jumpModifier += 1;
     }
 
     public void EatCheese()
     {
+        psc.Eat();
         canFart = true;
     }
 
     public void EatBeans()
     {
+        psc.Eat();
         jumpModifier = Mathf.Max(0, jumpModifier - 5);
     }
 
