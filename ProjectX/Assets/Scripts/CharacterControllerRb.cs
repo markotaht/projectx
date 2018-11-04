@@ -46,7 +46,7 @@ public class CharacterControllerRb : MonoBehaviour {
 
     private float currentFartTime = 0f;
 
-    bool facingRight = false;
+    bool facingRight = true;
     bool inAir = false;
     bool farting = false;
     bool canFart = false;
@@ -70,7 +70,7 @@ public class CharacterControllerRb : MonoBehaviour {
 
     public void EatBeans()
     {
-        jumpModifier = Mathf.Max(1, jumpModifier - 1);
+        jumpModifier = Mathf.Max(1, jumpModifier - 5);
     }
 
 	// Use this for initialization
