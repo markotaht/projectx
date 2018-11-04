@@ -21,7 +21,7 @@ public class DeathScreenController : MonoBehaviour {
 		if(dead && Time.time <= endTime)
         {
             Color tmp = deathPanel.GetComponent<Image>().color;
-            tmp.a = 1 - (endTime - Time.time) / duration;
+            tmp.a = 1 - (endTime - Time.time) / (duration + 2f);
             deathPanel.GetComponent<Image>().color = tmp;
         }
         else if (win && Time.time <= endTime)
@@ -36,7 +36,7 @@ public class DeathScreenController : MonoBehaviour {
     {
         dead = true;
         deathPanel.SetActive(true);
-        endTime = Time.time + duration;
+        endTime = Time.time + duration + 2f;
     }
 
     public void Won()
