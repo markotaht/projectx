@@ -206,7 +206,7 @@ public class CharacterControllerRb : MonoBehaviour {
 			
         {
 
-            RaycastHit2D hitUp = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size - new Vector2(0.5f,0), CapsuleDirection2D.Vertical, 0, Vector2.up, GetComponent<CapsuleCollider2D>().size.y /2 + 0.1f);
+            RaycastHit2D hitUp = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size - new Vector2(1f,0), CapsuleDirection2D.Vertical, 0, Vector2.up, GetComponent<CapsuleCollider2D>().size.y /2 + 0.1f);
             
             if (hitUp.collider != null)
             {
