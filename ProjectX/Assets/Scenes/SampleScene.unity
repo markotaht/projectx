@@ -350,11 +350,13 @@ MonoBehaviour:
   foodForce: 0.5
   fartDuration: 0.5
   psc: {fileID: 0}
+  dsc: {fileID: 0}
   trail: {fileID: 0}
   groundCheck: {fileID: 603669584}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  won: 0
 --- !u!61 &537024602
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -545,6 +547,11 @@ Prefab:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 552002048}
+    - target: {fileID: 114333264906167992, guid: a58ef70c8fb5db742a9932e4761e7914,
+        type: 2}
+      propertyPath: cc
+      value: 
+      objectReference: {fileID: 1920531584}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a58ef70c8fb5db742a9932e4761e7914, type: 2}
   m_IsPrefabAsset: 0
@@ -1199,6 +1206,12 @@ Prefab:
     - {fileID: 143366806836000158, guid: b1dbfcb856c9936468d2c9469385f973, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: b1dbfcb856c9936468d2c9469385f973, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1920531584 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114454948106752144, guid: b7a1d54adb216b34cb769773c2dfd764,
+    type: 2}
+  m_PrefabInternal: {fileID: 2000740218}
+  m_Script: {fileID: 11500000, guid: 553fc8986a156d0429a8db3a2133ed8c, type: 3}
 --- !u!1001 &1962824445
 Prefab:
   m_ObjectHideFlags: 0
