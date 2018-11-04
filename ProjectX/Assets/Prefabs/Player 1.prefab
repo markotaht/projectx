@@ -404,7 +404,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 00b70c3b9ab2d734c85a9eee499978be, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.34
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -845,11 +845,13 @@ MonoBehaviour:
   foodForce: 0.5
   fartDuration: 0.5
   psc: {fileID: 114747405369987198}
+  dsc: {fileID: 0}
   trail: {fileID: 1327391648832714}
   groundCheck: {fileID: 4256039559352564}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  won: 0
 --- !u!114 &114747405369987198
 MonoBehaviour:
   m_ObjectHideFlags: 1
