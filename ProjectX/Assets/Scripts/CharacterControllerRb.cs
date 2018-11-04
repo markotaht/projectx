@@ -184,6 +184,12 @@ public class CharacterControllerRb : MonoBehaviour {
         }
     }
 
+    public void Win()
+    {
+        won = true;
+        animator.SetFloat("Walking", 0);
+    }
+
     void Flip()
     {
         facingRight = !facingRight;

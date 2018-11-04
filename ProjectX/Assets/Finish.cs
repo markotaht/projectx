@@ -12,7 +12,7 @@ public class Finish : MonoBehaviour {
     {
         winAudio.Play();
         canvas.Won();
-        cc.won = true;
+        cc.Win();
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 }
