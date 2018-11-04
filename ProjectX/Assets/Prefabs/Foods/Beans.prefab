@@ -126,6 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a029633d6779842a833e5851c6f10c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cheese: 0
+  beans: 1
+  banana: 0
 --- !u!212 &212125945375261214
 SpriteRenderer:
   m_ObjectHideFlags: 1

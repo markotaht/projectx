@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4893346032985660}
-  - component: {fileID: 114526976532252830}
   - component: {fileID: 61469150635901098}
+  - component: {fileID: 114351944313494632}
   m_Layer: 0
   m_Name: Banana 1
   m_TagString: Untagged
@@ -115,7 +115,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114526976532252830
+--- !u!114 &114351944313494632
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,6 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a029633d6779842a833e5851c6f10c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cheese: 0
+  beans: 0
+  banana: 1
 --- !u!212 &212710460479384274
 SpriteRenderer:
   m_ObjectHideFlags: 1
