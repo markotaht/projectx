@@ -54,6 +54,8 @@ public class CharacterControllerRb : MonoBehaviour {
     bool walking = false;
     bool falling = false;
     bool alive = true;
+    public bool won = false;
+
 
 
     public void EatBanana()
@@ -80,12 +82,12 @@ public class CharacterControllerRb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (grounded && Input.GetButtonDown("Jump") && alive)
+        if (grounded && Input.GetButtonDown("Jump") && alive && !won)
         {
             animator.SetBool("Jump up", true);
         }
 
-        if(!grounded && Input.GetButton("Fart") && alive)
+        if(!grounded && Input.GetButton("Fart") && alive && canFart && !won)
         {
             canFart = false;
             animator.SetBool("Fart", true);
@@ -145,7 +147,7 @@ public class CharacterControllerRb : MonoBehaviour {
             {
                 Land();
             }
-            else if (grounded)
+            else if (grounded && alive && !won)
             {
                 move = Input.GetAxisRaw("Horizontal");
                 if (Mathf.Abs(move) > 0 && walking)
