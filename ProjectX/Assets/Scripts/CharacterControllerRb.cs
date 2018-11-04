@@ -96,7 +96,7 @@ public class CharacterControllerRb : MonoBehaviour {
             farting = true;
             currentFartTime = fartDuration;
             rb.gravityScale = 0;
-            trail.active = true;
+            trail.SetActive(true);
         }
     }
 
@@ -139,13 +139,13 @@ public class CharacterControllerRb : MonoBehaviour {
                 rb.gravityScale = 1;
                 farting = false;
                 animator.SetBool("Fart", false);
-                trail.active = false;
+                trail.SetActive(false);
             }
         }
         else
         {
             float move = rb.velocity.x / maxSpeed;
-            if (grounded && inAir && rb.velocity.y < 0)
+            if (grounded && inAir && rb.velocity.y < 0 && !farting)
             {
                 Land();
             }
