@@ -51,4 +51,14 @@ public class InputHandler : MonoBehaviour {
         }
         return KeyCode.None;
     }
+
+    public void ToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void StartNewGame()
+    {
+        SceneManager.LoadScene("Aimar Level");
+    }
 }
