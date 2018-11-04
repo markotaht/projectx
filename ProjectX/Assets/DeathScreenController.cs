@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class DeathScreenController : MonoBehaviour {
 
-    public GameObject panel;
+    public GameObject deathPanel;
+    public GameObject winPanel;
     private bool dead = false;
+    private bool win = false;
     private float endTime;
     private float duration = 2f;
 
@@ -18,17 +20,29 @@ public class DeathScreenController : MonoBehaviour {
 	void Update () {
 		if(dead && Time.time <= endTime)
         {
-            Color tmp = panel.GetComponent<Image>().color;
+            Color tmp = deathPanel.GetComponent<Image>().color;
             tmp.a = 1 - (endTime - Time.time) / duration;
-            panel.GetComponent<Image>().color = tmp;
+            deathPanel.GetComponent<Image>().color = tmp;
         }
-	}
+        else if (win && Time.time <= endTime)
+        {
+            Color tmp = winPanel.GetComponent<Image>().color;
+            tmp.a = 1 - (endTime - Time.time) / duration;
+            winPanel.GetComponent<Image>().color = tmp;
+        }
+    }
 
     public void Dead()
     {
         dead = true;
-        panel.SetActive(true);
+        deathPanel.SetActive(true);
         endTime = Time.time + duration;
     }
 
+    public void Won()
+    {
+        win = true;
+        winPanel.SetActive(true);
+        endTime = Time.time + duration;
+    }
 }
