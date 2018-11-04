@@ -7,6 +7,9 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField]
     public Transform target;
     public Transform finish;
+
+    [SerializeField]
+    private float YOffset;
     private bool intro = true;
     private float introcounter;
     private float maxIntroCounter = 6f;
@@ -16,12 +19,12 @@ public class CameraFollow : MonoBehaviour {
         //intro = true;
         introcounter = maxIntroCounter;
         Vector3 newPos = finish.position;
-        if (newPos.y < 0)
+        if (newPos.y < 0 + YOffset)
         {
-            newPos.y = 0;
+            newPos.y = 0 + YOffset;
         }
         newPos.z = -10;
-        transform.position = newPos;
+        transform.position = newPos + Vector3.up * YOffset;
     }
 	
 	// Update is called once per frame
@@ -39,22 +42,22 @@ public class CameraFollow : MonoBehaviour {
 
             Vector3 newPos = finish.position * introcounter / maxIntroCounter + target.position * (maxIntroCounter - introcounter) / maxIntroCounter;
             Camera.main.orthographicSize = 5 + 5 * Mathf.Sin(Mathf.PI * introcounter / maxIntroCounter);
-            if (newPos.y < 0)
+            if (newPos.y < 0 - YOffset)
             {
-                newPos.y = 0;
+                newPos.y = 0 - YOffset;
             }
             newPos.z = -10;
-            transform.position = newPos;
+            transform.position = newPos + Vector3.up * YOffset; ;
         }
         else
         {
             Vector3 newPos = target.position;
-            if (newPos.y < 0)
+            if (newPos.y < 0 - YOffset)
             {
-                newPos.y = 0;
+                newPos.y = 0 - YOffset;
             }
             newPos.z = -10;
-            transform.position = newPos;
+            transform.position = newPos + Vector3.up * YOffset; ;
         }
 	}
 
