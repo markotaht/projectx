@@ -28,7 +28,7 @@ public class CameraFollow : MonoBehaviour {
 	void Update () {
         if (intro)
         {
-            Debug.Log("intro");
+            //Debug.Log("intro");
             introcounter -= Time.deltaTime;
             if(introcounter < 0)
             {
@@ -49,7 +49,7 @@ public class CameraFollow : MonoBehaviour {
         }
         else
         {
-            Debug.Log("follow");
+            //Debug.Log("follow");
             Vector3 newPos = target.position;
             if (newPos.y < 0)
             {
