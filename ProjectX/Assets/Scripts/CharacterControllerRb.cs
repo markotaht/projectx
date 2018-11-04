@@ -150,11 +150,11 @@ public class CharacterControllerRb : MonoBehaviour {
             else if (grounded && alive && !won)
             {
                 move = Input.GetAxisRaw("Horizontal");
-                if (Mathf.Abs(move) > 0)
+                if (Mathf.Abs(move) > 0 && !walking)
                 {
                     walking = true;
                     psc.Running(true);
-                }else if(Mathf.Approximately(move, 0))
+                }else if(Mathf.Approximately(move, 0) && walking)
                 {
                     walking = false;
                     psc.Running(false);
@@ -226,6 +226,7 @@ public class CharacterControllerRb : MonoBehaviour {
     private void Die(bool ceiling)
     {
         alive = false;
+        psc.Die();
         if (dsc != null)
         {
             dsc.Dead();
