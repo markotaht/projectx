@@ -10,10 +10,6 @@ public class CharacterControllerRb : MonoBehaviour {
     [SerializeField]
     private float maxSpeed = 10;
 
-	//Hüppe jõud
-    [SerializeField]
-    private float jumpforce = 350f;
-
 	//Peeru tugevus
     [SerializeField]
     private float fartForce = 0.001f;
@@ -32,7 +28,10 @@ public class CharacterControllerRb : MonoBehaviour {
     [SerializeField]
     private DeathScreenController dsc;
 
-    private float jumpModifier = 1;
+    [SerializeField]
+    private float baseJumpForce = 350;
+
+    private float jumpModifier = 0;
 
     [SerializeField]
     private GameObject trail;
@@ -46,7 +45,7 @@ public class CharacterControllerRb : MonoBehaviour {
 
     private float currentFartTime = 0f;
 
-    bool facingRight = false;
+    bool facingRight = true;
     bool inAir = false;
     bool farting = false;
     bool canFart = false;
@@ -70,7 +69,7 @@ public class CharacterControllerRb : MonoBehaviour {
 
     public void EatBeans()
     {
-        jumpModifier = Mathf.Max(1, jumpModifier - 1);
+        jumpModifier = Mathf.Max(0, jumpModifier - 5);
     }
 
 	// Use this for initialization
@@ -104,7 +103,7 @@ public class CharacterControllerRb : MonoBehaviour {
         animator.SetBool("Jump up", false);
         inAir = true;
         jumping = true;
-        rb.AddForce(new Vector2(0, jumpforce + jumpforce * jumpModifier * foodForce));
+        rb.AddForce(new Vector2(0, baseJumpForce + baseJumpForce * jumpModifier * foodForce));
       
     }
 
