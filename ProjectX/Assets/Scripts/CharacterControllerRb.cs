@@ -29,7 +29,10 @@ public class CharacterControllerRb : MonoBehaviour {
     [SerializeField]
     private PlayerSoundController psc;
 
-    public JumpModifiers jumpModifiers;
+    [SerializeField]
+    private DeathScreenController dsc;
+
+    private float jumpModifier = 1;
 
     [SerializeField]
     private GameObject trail;
@@ -49,32 +52,42 @@ public class CharacterControllerRb : MonoBehaviour {
     bool canFart = false;
     bool jumping = false;
     bool walking = false;
+    bool falling = false;
+    bool alive = true;
+    public bool won = false;
 
-    public void EatFood()
+
+
+    public void EatBanana()
     {
-        jumpModifiers.FoodEaten += 1;
+        jumpModifier += 1;
     }
 
-    public void FartFood()
+    public void EatCheese()
     {
         canFart = true;
+    }
+
+    public void EatBeans()
+    {
+        jumpModifier = Mathf.Max(1, jumpModifier - 1);
     }
 
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
-        jumpModifiers = new JumpModifiers();
+
         animator = GetComponentInChildren<Animator>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (grounded && Input.GetButtonDown("Jump"))
+        if (grounded && Input.GetButtonDown("Jump") && alive && !won)
         {
             animator.SetBool("Jump up", true);
         }
 
-        if(!grounded && Input.GetButton("Fart"))
+        if(!grounded && Input.GetButton("Fart") && alive && canFart && !won)
         {
             canFart = false;
             animator.SetBool("Fart", true);
@@ -87,21 +100,23 @@ public class CharacterControllerRb : MonoBehaviour {
 
     public void Jump()
     {
+   
         animator.SetBool("Jump up", false);
         inAir = true;
         jumping = true;
-        rb.AddForce(new Vector2(0, jumpModifiers.ApplyModifiers(jumpforce, foodForce)));
+        rb.AddForce(new Vector2(0, jumpforce + jumpforce * jumpModifier * foodForce));
+      
     }
 
     public void Land()
     {
         inAir = false;
-        animator.SetBool("Falling", true);
+        animator.SetBool("Landing", true);
     }
 
     public void Landed()
     {
-        animator.SetBool("Falling", false);
+        animator.SetBool("Landing", false);
         jumping = false;
     }
 
@@ -132,7 +147,7 @@ public class CharacterControllerRb : MonoBehaviour {
             {
                 Land();
             }
-            else if (grounded)
+            else if (grounded && alive && !won)
             {
                 move = Input.GetAxisRaw("Horizontal");
                 if (Mathf.Abs(move) > 0 && walking)
@@ -179,11 +194,19 @@ public class CharacterControllerRb : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (false && !grounded)
+        if (!grounded && jumping && !farting)
 			
         {
 
-            RaycastHit2D hitUp = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.up, GetComponent<CapsuleCollider2D>().size.y /2 + 0.1f);
+            RaycastHit2D hitUp = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size - new Vector2(0.5f,0), CapsuleDirection2D.Vertical, 0, Vector2.up, GetComponent<CapsuleCollider2D>().size.y /2 + 0.1f);
+            
+            if (hitUp.collider != null)
+            {
+
+                Die(true);
+            }
+        }else if(!grounded && farting)
+        {
             RaycastHit2D hitLeft = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.left, GetComponent<CapsuleCollider2D>().size.x / 2 + 0.1f);
             RaycastHit2D hitRight = Physics2D.CapsuleCast(transform.position, GetComponent<CapsuleCollider2D>().size, CapsuleDirection2D.Vertical, 0, Vector2.right, GetComponent<CapsuleCollider2D>().size.x / 2 + 0.1f);
 
@@ -191,19 +214,19 @@ public class CharacterControllerRb : MonoBehaviour {
             {
                 Die(false);
             }
-            else if (hitUp.collider != null)
-            {
-
-                Die(true);
-            }
         }
     }
 
     private void Die(bool ceiling)
     {
+        alive = false;
+        if (dsc != null)
+        {
+            dsc.Dead();
+        }
         if (ceiling)
         {
-            animator.SetBool("HitCeiling", false);
+            animator.SetBool("HitCeiling", true);
             rb.gravityScale = 0;
             rb.velocity = Vector3.zero;
             farting = false;
@@ -214,7 +237,7 @@ public class CharacterControllerRb : MonoBehaviour {
         }
         else
         {
-            animator.SetBool("HitWall", false);
+            animator.SetBool("HitWall", true);
             rb.gravityScale = 0;
             rb.velocity = Vector3.zero;
             farting = false;
@@ -222,5 +245,6 @@ public class CharacterControllerRb : MonoBehaviour {
             trail.active = false;
             Debug.Log("wall death");
         }
+        
     }
 }

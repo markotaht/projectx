@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4878827864297814}
-  - component: {fileID: 114792921014201356}
   - component: {fileID: 61322825891997312}
+  - component: {fileID: 114896785088098094}
   m_Layer: 0
   m_Name: Cheese
   m_TagString: Untagged
@@ -115,7 +115,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114792921014201356
+--- !u!114 &114896785088098094
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,9 +123,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1204147470114382}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a170dfc0cf33b04d98f71565d8666bf, type: 3}
+  m_Script: {fileID: 11500000, guid: c4a029633d6779842a833e5851c6f10c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cheese: 1
+  beans: 0
+  banana: 0
 --- !u!212 &212497500757530612
 SpriteRenderer:
   m_ObjectHideFlags: 1
