@@ -150,7 +150,7 @@ public class CharacterControllerRb : MonoBehaviour {
             else if (grounded && alive && !won)
             {
                 move = Input.GetAxisRaw("Horizontal");
-                if (Mathf.Abs(move) > 0 && walking)
+                if (Mathf.Abs(move) > 0)
                 {
                     walking = true;
                     psc.Running(true);
